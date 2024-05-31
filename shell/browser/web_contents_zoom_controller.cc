@@ -225,8 +225,10 @@ void WebContentsZoomController::DidFinishNavigation(
     return;
   }
 
-  ResetZoomModeOnNavigationIfNeeded(navigation_handle->GetURL());
-  SetZoomFactorOnNavigationIfNeeded(navigation_handle->GetURL());
+  if (!navigation_handle->IsSameDocument()) {
+    ResetZoomModeOnNavigationIfNeeded(navigation_handle->GetURL());
+    SetZoomFactorOnNavigationIfNeeded(navigation_handle->GetURL());
+  }
 }
 
 void WebContentsZoomController::WebContentsDestroyed() {
